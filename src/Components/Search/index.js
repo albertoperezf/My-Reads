@@ -1,9 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import * as BooksAPI from '../../BooksAPI'
+import * as BooksAPI from '../../BooksAPI'
 import '../../App.css'
 
 class Search extends React.Component {
+
+    async componentDidMount () {
+        console.log('Im ready!')
+        const results = await BooksAPI.getAll()
+        console.log(results)
+    }
+
     render() {
         return (
             <div className="search-books">
