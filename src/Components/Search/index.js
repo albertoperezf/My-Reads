@@ -1,27 +1,33 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from '../../BooksAPI'
+import Book from '../Book'
 import '../../App.css'
 
 class Search extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            query: ''
+            books: [],
+            value: ''
+        }
+    };
+
+    handleSearch = async () => {
+        console.log(this.state.value)
+        const results = await BooksAPI.search(this.state.value, 20);
+        if (results) {
+            console.log(results)
+            this.setState({
+                books: results
+            });
         }
     }
 
-    handleSearch = async (query) => {
-        console.log('Im running')
-        const resultsCurrentlyReading = await BooksAPI.search(query, 20);
-        console.log(resultsCurrentlyReading);
-    }
-
     handleChange = (event) => {
-        let value = event.target.value
         this.setState({
-            query: value
-        })
+            value: event.target.value
+        });
     }
 
     render() {
@@ -38,13 +44,26 @@ class Search extends Component {
                         <input
                             type="text"
                             placeholder="Search by title or author"
-                            onSubmit={this.handleSearch}
                             onChange={this.handleChange}
+                            onKeyUp={this.handleSearch}
+                            value={this.state.value}
                         />
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
+                    <ol className="books-grid">
+                        {this.state.books.map((book) => (
+                            <li
+                                key={book.industryIdentifiers[0].identifier}
+                            >
+                                <Book
+                                    cover={book.imageLinks.thumbnail}
+                                    title={book.title}
+                                    authors={book.authors}
+                                />
+                            </li>
+                        ))}
+                    </ol>
                 </div>
             </div>
         )

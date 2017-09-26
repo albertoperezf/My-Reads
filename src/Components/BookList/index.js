@@ -5,12 +5,20 @@ import Book from '../Book'
 import '../../App.css'
 
 class BookList extends Component {
-    state = {
-        books: []
+    constructor (props) {
+        super(props)
+        this.state = {
+            books: []
+        }
     }
 
     async componentDidMount () {
         const results = await BooksAPI.getAll();
+        for (let i = 0; i < results.length; i++) {
+            const bookShelf = results[i].shelf;
+            console.log(bookShelf)
+        }
+        // console.log(bookShlef);
         this.setState({
             books: results
         });

@@ -6,7 +6,7 @@ class Book extends Component {
     static propTypes = {
         cover: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
-        authors: PropTypes.array.isRequired
+        authors: PropTypes.array
     }
 
     render() {
