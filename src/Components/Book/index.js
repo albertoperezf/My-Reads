@@ -7,14 +7,14 @@ class Book extends Component {
     static propTypes = {
         cover: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
-        authors: PropTypes.array
+        authors: PropTypes.array,
+        shelf: PropTypes.string
     }
 
     constructor (props) {
         super(props)
         this.state = {
             book: {},
-            shelf: '',
             value: ''
         }
     };
@@ -27,13 +27,14 @@ class Book extends Component {
     }
 
     render() {
+        console.log(this.props.shelf)
         return (
             <div className="book">
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${this.props.cover}")` }}></div>
                     <div className="book-shelf-changer">
-                        <select value={this.state.value} onChange={this.handleChange}>
-                            <option value="none" disabled>Move to...</option>
+                        <select value={this.props.shelf} onChange={this.handleChange}>
+                            <option disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
                             <option value="read">Read</option>

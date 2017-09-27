@@ -43,6 +43,7 @@ class BookList extends Component {
                                             title={book.title}
                                             authors={book.authors}
                                             key={book.id}
+                                            shelf={book.shelf}
                                         />
                                         : ''
                                 ))}
@@ -60,6 +61,7 @@ class BookList extends Component {
                                                 title={book.title}
                                                 authors={book.authors}
                                                 key={book.id}
+                                                shelf={book.shelf}
                                             />
                                             : ''
                                     ))}
@@ -77,6 +79,7 @@ class BookList extends Component {
                                                 title={book.title}
                                                 authors={book.authors}
                                                 key={book.id}
+                                                shelf={book.shelf}
                                             />
                                             : ''
                                     ))}

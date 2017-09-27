@@ -8,8 +8,9 @@ class WantToRead extends Component {
         cover: PropTypes.string,
         title: PropTypes.string,
         authors: PropTypes.array,
-        id: PropTypes.string
-    }
+        id: PropTypes.string,
+        shelf: PropTypes.string
+    };
 
     render() {
         return (
@@ -18,6 +19,7 @@ class WantToRead extends Component {
                     cover={this.props.cover}
                     title={this.props.title}
                     authors={this.props.authors}
+                    shelf={this.props.shelf}
                 />
             </li>
         )
