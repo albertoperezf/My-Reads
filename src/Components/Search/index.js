@@ -14,10 +14,8 @@ class Search extends Component {
     };
 
     handleSearch = async () => {
-        console.log(this.state.value)
         const results = await BooksAPI.search(this.state.value, 20);
         if (results) {
-            console.log(results)
             this.setState({
                 books: results
             });

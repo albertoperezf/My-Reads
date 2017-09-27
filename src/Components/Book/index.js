@@ -19,13 +19,6 @@ class Book extends Component {
         }
     };
 
-    /* This function controls the updates of the books shelf */
-    handleUpdate = async () => {
-        // const results = await BooksAPI.update();
-        // console.log(results);
-        console.log('Im a test!');
-    }
-
     handleChange = (event) => {
         this.setState({
             value: event.target.value
