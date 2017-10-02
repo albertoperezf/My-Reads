@@ -22,6 +22,7 @@ class BookList extends Component {
         this.setState({
             books: results
         });
+        // console.log(this.state.books)
     }
 
     render() {
@@ -39,11 +40,12 @@ class BookList extends Component {
                                 {this.state.books.map((book) => (
                                     book.shelf === "currentlyReading"
                                         ? <CurrentlyReading
-                                            cover={book.imageLinks.thumbnail}
+                                            cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
                                             title={book.title}
                                             authors={book.authors}
                                             key={book.id}
                                             shelf={book.shelf}
+                                            book={book}
                                         />
                                         : ''
                                 ))}
@@ -57,11 +59,12 @@ class BookList extends Component {
                                     {this.state.books.map((book) => (
                                         book.shelf === "wantToRead"
                                             ? <WantToRead
-                                                cover={book.imageLinks.thumbnail}
+                                                cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
                                                 title={book.title}
                                                 authors={book.authors}
                                                 key={book.id}
                                                 shelf={book.shelf}
+                                                book={book}
                                             />
                                             : ''
                                     ))}
@@ -69,17 +72,18 @@ class BookList extends Component {
                             </div>
                         </div>
                         <div className="bookshelf">
-                            <h2 className="bookshelf-title">Want to Read</h2>
+                            <h2 className="bookshelf-title">Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
                                     {this.state.books.map((book) => (
                                         book.shelf === "read"
                                             ? <Read
-                                                cover={book.imageLinks.thumbnail}
+                                                cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
                                                 title={book.title}
                                                 authors={book.authors}
                                                 key={book.id}
                                                 shelf={book.shelf}
+                                                book={book}
                                             />
                                             : ''
                                     ))}

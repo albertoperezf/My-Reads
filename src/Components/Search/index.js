@@ -15,6 +15,7 @@ class Search extends Component {
 
     handleSearch = async () => {
         const results = await BooksAPI.search(this.state.value, 20);
+        console.log(results)
         if (results) {
             this.setState({
                 books: results
@@ -55,9 +56,10 @@ class Search extends Component {
                                 key={book.industryIdentifiers[0].identifier}
                             >
                                 <Book
-                                    cover={book.imageLinks.thumbnail}
+                                    cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
                                     title={book.title}
                                     authors={book.authors}
+                                    book={book}
                                 />
                             </li>
                         ))}

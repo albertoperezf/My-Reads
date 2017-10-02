@@ -7,9 +7,12 @@ import Search from './Components/Search'
 import './App.css'
 
 class BooksApp extends React.Component {
-  state = {
-    showSearchPage: false
-  }
+    constructor (props) {
+        super(props)
+        this.state = {
+
+        }
+    }
 
   render() {
     return (

@@ -9,17 +9,19 @@ class Read extends Component {
         title: PropTypes.string,
         authors: PropTypes.array,
         id: PropTypes.string,
-        shelf: PropTypes.string
+        shelf: PropTypes.string,
+        book: PropTypes.object
     };
 
     render() {
         return (
             <li>
                 <Book
-                    cover={this.props.cover}
+                    cover={this.props.cover || ''}
                     title={this.props.title}
                     authors={this.props.authors}
                     shelf={this.props.shelf}
+                    book={this.props.book}
                 />
             </li>
         )
