@@ -9,18 +9,38 @@ class Search extends Component {
         super(props)
         this.state = {
             books: [],
+            bookList: [],
             value: ''
         }
     };
 
+    async componentDidMount () {
+        const results = await BooksAPI.getAll();
+        if (results) {
+            this.setState({
+                bookList: results
+            });
+        }
+    }
+
     handleSearch = async () => {
         const results = await BooksAPI.search(this.state.value, 20);
-        console.log(results)
         if (results) {
             this.setState({
                 books: results
             });
         }
+        // console.log(this.state.bookList);
+        // console.log(this.state.books);
+        const searchResults = this.state.books;
+        const currentBooks = this.state.bookList;
+        let compare = searchResults.filter(function (o1) {
+            return currentBooks.some(function (o2) {
+                return o1.title === o2.title;
+            });
+        });
+        // console.log(JSON.stringify(compare, null, 4));
+        console.log(compare);
     }
 
     handleChange = (event) => {
@@ -51,18 +71,21 @@ class Search extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.books.map((book) => (
-                            <li
-                                key={book.industryIdentifiers[0].identifier}
-                            >
-                                <Book
-                                    cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
-                                    title={book.title}
-                                    authors={book.authors}
-                                    book={book}
-                                />
-                            </li>
-                        ))}
+                        {this.state.books
+                            ? this.state.books.map((book) => (
+                                <li
+                                    key={book.industryIdentifiers[0].identifier}
+                                >
+                                    <Book
+                                        cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
+                                        title={book.title}
+                                        authors={book.authors}
+                                        book={book}
+                                    />
+                                </li>
+                            ))
+                            : ''
+                        }
                     </ol>
                 </div>
             </div>

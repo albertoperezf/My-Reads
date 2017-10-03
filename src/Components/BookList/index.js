@@ -37,18 +37,21 @@ class BookList extends Component {
                             <h2 className="bookshelf-title">Currently Reading</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                {this.state.books.map((book) => (
-                                    book.shelf === "currentlyReading"
-                                        ? <CurrentlyReading
-                                            cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
-                                            title={book.title}
-                                            authors={book.authors}
-                                            key={book.id}
-                                            shelf={book.shelf}
-                                            book={book}
-                                        />
+                                    {this.state.books
+                                        ? this.state.books.map((book) => (
+                                            book.shelf === "currentlyReading"
+                                                ? <CurrentlyReading
+                                                    cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
+                                                    title={book.title}
+                                                    authors={book.authors}
+                                                    key={book.id}
+                                                    shelf={book.shelf}
+                                                    book={book}
+                                                />
+                                                : ''
+                                        ))
                                         : ''
-                                ))}
+                                    }
                                 </ol>
                             </div>
                         </div>
@@ -56,18 +59,21 @@ class BookList extends Component {
                             <h2 className="bookshelf-title">Want to Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books.map((book) => (
-                                        book.shelf === "wantToRead"
-                                            ? <WantToRead
-                                                cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
-                                                title={book.title}
-                                                authors={book.authors}
-                                                key={book.id}
-                                                shelf={book.shelf}
-                                                book={book}
-                                            />
-                                            : ''
-                                    ))}
+                                    {this.state.books
+                                        ? this.state.books.map((book) => (
+                                            book.shelf === "wantToRead"
+                                                ? <WantToRead
+                                                    cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
+                                                    title={book.title}
+                                                    authors={book.authors}
+                                                    key={book.id}
+                                                    shelf={book.shelf}
+                                                    book={book}
+                                                />
+                                                : ''
+                                        ))
+                                        : ''
+                                    }
                                 </ol>
                             </div>
                         </div>
@@ -75,18 +81,21 @@ class BookList extends Component {
                             <h2 className="bookshelf-title">Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books.map((book) => (
-                                        book.shelf === "read"
-                                            ? <Read
-                                                cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
-                                                title={book.title}
-                                                authors={book.authors}
-                                                key={book.id}
-                                                shelf={book.shelf}
-                                                book={book}
-                                            />
-                                            : ''
-                                    ))}
+                                    {this.state.books
+                                        ? this.state.books.map((book) => (
+                                            book.shelf === "read"
+                                                ? <Read
+                                                    cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
+                                                    title={book.title}
+                                                    authors={book.authors}
+                                                    key={book.id}
+                                                    shelf={book.shelf}
+                                                    book={book}
+                                                />
+                                                : ''
+                                        ))
+                                        : ''
+                                    }
                                 </ol>
                             </div>
                         </div>

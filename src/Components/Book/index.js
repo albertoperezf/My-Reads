@@ -24,7 +24,7 @@ class Book extends Component {
             value: event.target.value
         });
         await BooksAPI.update(this.props.book, event.target.value);
-        // location.reload();
+        location.reload();
     }
 
     render() {
