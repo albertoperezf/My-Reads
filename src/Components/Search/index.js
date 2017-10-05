@@ -11,9 +11,6 @@ class Search extends Component {
             books: [],
             bookList: [],
             value: '',
-            shelf: [],
-            shelfTitles: [],
-            resultTitles: [],
             compare: [],
             rest: []
         }
@@ -39,11 +36,14 @@ class Search extends Component {
         const currentBooks = this.state.bookList;
         const compare = currentBooks.filter(o1 => searchBooks.some(o2 => o1.title === o2.title && o1.id === o2.id));
         const currentCompare = compare
-        const rest = searchBooks.filter(o1 => currentCompare.some(o2 => o1.title !== o2.title));
+        const rest = searchBooks.filter(o1 => currentCompare.some(o2 => o1.title !== o2.title && o1.id !== o2.id));
         this.setState({
             compare: compare,
             rest: rest
         });
+        console.log(this.state.books);
+        console.log(this.state.compare)
+        console.log(this.state.rest)
     }
 
     handleChange = (event) => {
@@ -74,7 +74,7 @@ class Search extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.compare
+                        {this.state.compare !== 0 && this.state.rest !==0
                             ? this.state.compare.map((book) => (
                                 <li
                                     key={book.id}
@@ -90,8 +90,23 @@ class Search extends Component {
                             ))
                             : ''
                         }
-                        {this.state.books
+                        {this.state.compare !== 0 && this.state.rest !==0
                             ? this.state.rest.map((book) => (
+                                <li
+                                    key={book.id}
+                                >
+                                    <Book
+                                        cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
+                                        title={book.title}
+                                        authors={book.authors}
+                                        book={book}
+                                    />
+                                </li>
+                            ))
+                            : ''
+                        }
+                        {this.state.books && this.state.compare.length === 0 && this.state.rest.length === 0
+                            ? this.state.books.map((book) => (
                                 <li
                                     key={book.id}
                                 >
