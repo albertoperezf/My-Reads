@@ -7,7 +7,7 @@ import '../../App.css'
 
 class Search extends Component {
     static propTypes = {
-        books: PropTypes.string
+        books: PropTypes.array
     }
 
     static defaultProps = {
