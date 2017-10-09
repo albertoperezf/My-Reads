@@ -1,26 +1,16 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from '../../BooksAPI'
 import BookShelf from '../BookShelf'
 import '../../App.css'
 
 class BookList extends Component {
-    constructor (props) {
-        super(props)
-        this.state = {
-            books: [],
-            currentlyReading: [],
-            wantToRead: [],
-            read: []
-        }
+    static propTypes = {
+        books: PropTypes.array
     }
 
-    async componentDidMount () {
-        const results = await BooksAPI.getAll();
-        this.setState({
-            books: results
-        });
-        // console.log(this.state.books)
+    static defaultProps = {
+        books: []
     }
 
     render() {
@@ -35,20 +25,18 @@ class BookList extends Component {
                             <h2 className="bookshelf-title">Currently Reading</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books
-                                        ? this.state.books.map((book) => (
-                                            book.shelf === "currentlyReading"
-                                                ? <BookShelf
-                                                    cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
-                                                    title={book.title}
-                                                    authors={book.authors}
-                                                    key={book.id}
-                                                    shelf={book.shelf}
-                                                    book={book}
-                                                />
-                                                : ''
+                                    {this.props.books.map((book) => (
+                                        book.shelf === "currentlyReading"
+                                            ? <BookShelf
+                                                cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
+                                                title={book.title}
+                                                authors={book.authors}
+                                                key={book.id}
+                                                shelf={book.shelf}
+                                                book={book}
+                                            />
+                                            : ''
                                         ))
-                                        : ''
                                     }
                                 </ol>
                             </div>
@@ -57,20 +45,18 @@ class BookList extends Component {
                             <h2 className="bookshelf-title">Want to Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books
-                                        ? this.state.books.map((book) => (
-                                            book.shelf === "wantToRead"
-                                                ? <BookShelf
-                                                    cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
-                                                    title={book.title}
-                                                    authors={book.authors}
-                                                    key={book.id}
-                                                    shelf={book.shelf}
-                                                    book={book}
-                                                />
-                                                : ''
+                                    {this.props.books.map((book) => (
+                                        book.shelf === "wantToRead"
+                                            ? <BookShelf
+                                                cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
+                                                title={book.title}
+                                                authors={book.authors}
+                                                key={book.id}
+                                                shelf={book.shelf}
+                                                book={book}
+                                            />
+                                            : ''
                                         ))
-                                        : ''
                                     }
                                 </ol>
                             </div>
@@ -79,20 +65,18 @@ class BookList extends Component {
                             <h2 className="bookshelf-title">Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {this.state.books
-                                        ? this.state.books.map((book) => (
-                                            book.shelf === "read"
-                                                ? <BookShelf
-                                                    cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
-                                                    title={book.title}
-                                                    authors={book.authors}
-                                                    key={book.id}
-                                                    shelf={book.shelf}
-                                                    book={book}
-                                                />
-                                                : ''
+                                    {this.props.books.map((book) => (
+                                        book.shelf === "read"
+                                            ? <BookShelf
+                                                cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
+                                                title={book.title}
+                                                authors={book.authors}
+                                                key={book.id}
+                                                shelf={book.shelf}
+                                                book={book}
+                                            />
+                                            : ''
                                         ))
-                                        : ''
                                     }
                                 </ol>
                             </div>

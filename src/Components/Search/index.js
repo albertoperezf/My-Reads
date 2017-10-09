@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from '../../BooksAPI'
 import Book from '../Book'
 import '../../App.css'
 
 class Search extends Component {
+    static propTypes = {
+        books: PropTypes.string
+    }
+
+    static defaultProps = {
+        books: []
+    }
+
     constructor (props) {
         super(props)
         this.state = {
@@ -16,15 +25,6 @@ class Search extends Component {
         }
     };
 
-    async componentDidMount () {
-        const results = await BooksAPI.getAll();
-        if (results) {
-            this.setState({
-                bookList: results
-            });
-        }
-    }
-
     handleSearch = async () => {
         const results = await BooksAPI.search(this.state.value, 20);
         if (results) {
@@ -33,7 +33,7 @@ class Search extends Component {
             });
         }
         const searchBooks = this.state.books;
-        const currentBooks = this.state.bookList;
+        const currentBooks = this.props.books;
         const compare = currentBooks.filter(o1 => searchBooks.some(o2 => o1.title === o2.title && o1.id === o2.id));
         const currentCompare = compare
         const rest = searchBooks.filter(o1 => currentCompare.some(o2 => o1.title !== o2.title && o1.id !== o2.id));
@@ -41,9 +41,6 @@ class Search extends Component {
             compare: compare,
             rest: rest
         });
-        console.log(this.state.books);
-        console.log(this.state.compare)
-        console.log(this.state.rest)
     }
 
     handleChange = (event) => {

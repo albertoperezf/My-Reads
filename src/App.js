@@ -1,16 +1,24 @@
-
 import React from 'react'
 import { Route } from 'react-router-dom'
 import BookList from './Components/BookList'
 import Search from './Components/Search'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class BooksApp extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
+            bookList: []
+        }
+    }
 
+    async componentDidMount () {
+        const results = await BooksAPI.getAll();
+        if (results) {
+            this.setState({
+                bookList: results
+            });
         }
     }
 
@@ -20,13 +28,19 @@ class BooksApp extends React.Component {
         <Route
             exact
             path="/"
-            component={BookList}
-        />
+            render={() => (
+                <BookList
+                    books={this.state.bookList}
+                />
+        )}/>
         <Route
             exact
             path="/search"
-            component={Search}
-        />
+            render={() => (
+                <Search
+                    books={this.state.bookList}
+                />
+        )}/>
       </div>
     )
   }
