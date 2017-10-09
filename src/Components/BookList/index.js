@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from '../../BooksAPI'
-import CurrentlyReading from '../CurrentlyReading'
-import WantToRead from '../WantToRead'
-import Read from '../Read'
+import BookShelf from '../BookShelf'
 import '../../App.css'
 
 class BookList extends Component {
@@ -40,7 +38,7 @@ class BookList extends Component {
                                     {this.state.books
                                         ? this.state.books.map((book) => (
                                             book.shelf === "currentlyReading"
-                                                ? <CurrentlyReading
+                                                ? <BookShelf
                                                     cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
                                                     title={book.title}
                                                     authors={book.authors}
@@ -62,7 +60,7 @@ class BookList extends Component {
                                     {this.state.books
                                         ? this.state.books.map((book) => (
                                             book.shelf === "wantToRead"
-                                                ? <WantToRead
+                                                ? <BookShelf
                                                     cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
                                                     title={book.title}
                                                     authors={book.authors}
@@ -84,7 +82,7 @@ class BookList extends Component {
                                     {this.state.books
                                         ? this.state.books.map((book) => (
                                             book.shelf === "read"
-                                                ? <Read
+                                                ? <BookShelf
                                                     cover={book.imageLinks ? book.imageLinks.thumbnail : ''}
                                                     title={book.title}
                                                     authors={book.authors}

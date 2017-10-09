@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Book from '../Book'
 import '../../App.css'
 
-class Read extends Component {
+class BookShelf extends Component {
     static propTypes = {
         cover: PropTypes.string,
         title: PropTypes.string,
@@ -28,4 +28,4 @@ class Read extends Component {
     }
 }
 
-export default Read
+export default BookShelf
