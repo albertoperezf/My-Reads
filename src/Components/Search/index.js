@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Debounce } from 'react-throttle';
-import debounce from 'debounce';
+import _ from 'lodash';
 import * as BooksAPI from '../../BooksAPI'
 import Book from '../Book'
 import '../../App.css'
@@ -39,6 +38,7 @@ class Search extends Component {
         const compare = currentBooks.filter(o1 => searchBooks.some(o2 => o1.title === o2.title && o1.id === o2.id));
         const currentCompare = compare
         const rest = searchBooks.filter(o1 => currentCompare.some(o2 => o1.title !== o2.title && o1.id !== o2.id));
+        // const rest = searchBooks.filter(o1 => !currentCompare.some(o2 => o1.title === o2.title && o1.id === o2.id));
         this.setState({
             compare: compare,
             rest: rest
@@ -49,10 +49,10 @@ class Search extends Component {
         this.setState({
             value: event.target.value
         });
-        console.log(this.state.value)
     }
 
     render() {
+        const debounceSearch = _.debounce(this.handleSearch, 1000);
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -63,15 +63,13 @@ class Search extends Component {
                         />
                     </div>
                     <div className="search-books-input-wrapper">
-                        <Debounce time="1                                                                                                                                     00" handler="onKeyUp">
-                            <input
-                                type="text"
-                                placeholder="Search by title or author"
-                                onChange={this.handleChange}
-                                onKeyUp={this.handleSearch}
-                                value={this.state.value}
-                            />
-                        </Debounce>
+                        <input
+                            type="text"
+                            placeholder="Search by title or author"
+                            onChange={this.handleChange}
+                            onKeyUp={debounceSearch}
+                            value={this.state.value}
+                        />
                     </div>
                 </div>
                 <div className="search-books-results">
