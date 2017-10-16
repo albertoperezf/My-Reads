@@ -28,17 +28,20 @@ class Search extends Component {
 
     handleSearch = async () => {
         const results = await BooksAPI.search(this.state.value, 20);
-        if (results) {
-            this.setState({
-                books: results
-            });
-        }
+        BooksAPI.search(this.state.value, 20)
+            .then(
+                this.setState({
+                    books: results
+                })
+            )
+            .catch(
+                (e)=>{this.setState({books: []})}
+            )
         const searchBooks = this.state.books;
         const currentBooks = this.props.books;
         const compare = currentBooks.filter(o1 => searchBooks.some(o2 => o1.title === o2.title && o1.id === o2.id));
         const currentCompare = compare
-        const rest = searchBooks.filter(o1 => currentCompare.some(o2 => o1.title !== o2.title && o1.id !== o2.id));
-        // const rest = searchBooks.filter(o1 => !currentCompare.some(o2 => o1.title === o2.title && o1.id === o2.id));
+        const rest = searchBooks.filter(o1 => !currentCompare.some(o2 => o1.title === o2.title && o1.id === o2.id));
         this.setState({
             compare: compare,
             rest: rest
