@@ -23,7 +23,7 @@ class Book extends Component {
         this.setState({
             value: event.target.value
         });
-        const updateBook = await BooksAPI.update(this.props.book, event.target.value);
+        await BooksAPI.update(this.props.book, event.target.value);
     }
 
     render() {

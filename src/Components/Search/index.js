@@ -26,26 +26,31 @@ class Search extends Component {
         }
     };
 
-    handleSearch = async () => {
-        const results = await BooksAPI.search(this.state.value, 20);
-        BooksAPI.search(this.state.value, 20)
-            .then(
+    handleSearch = () => {
+        new Promise(async (resolve, reject) => {
+            const results = await BooksAPI.search(this.state.value, 20);
+            if (results)  {
+                resolve(results)
+            } else {
+                reject(results)
+            }
+        })
+            .then((successContent) => {
+            this.setState({books: successContent})
+                const searchBooks = this.state.books ? this.state.books : [];
+                const currentBooks = this.props.books ? this.props.books : [];
+                const compare = currentBooks.filter(o1 => searchBooks.some(o2 => o1.title === o2.title && o1.id === o2.id));
+                const currentCompare = compare
+                const rest = searchBooks.filter(o1 => !currentCompare.some(o2 => o1.title === o2.title && o1.id === o2.id));
                 this.setState({
-                    books: results
-                })
-            )
-            .catch(
-                (e)=>{this.setState({books: []})}
-            )
-        const searchBooks = this.state.books;
-        const currentBooks = this.props.books;
-        const compare = currentBooks.filter(o1 => searchBooks.some(o2 => o1.title === o2.title && o1.id === o2.id));
-        const currentCompare = compare
-        const rest = searchBooks.filter(o1 => !currentCompare.some(o2 => o1.title === o2.title && o1.id === o2.id));
-        this.setState({
-            compare: compare,
-            rest: rest
-        });
+                    compare: compare,
+                    rest: rest
+                });
+        })
+            .catch((errorContent) => {
+                console.table(errorContent)
+                this.setState({books: []});
+            });
     }
 
     handleChange = (event) => {
@@ -55,7 +60,7 @@ class Search extends Component {
     }
 
     render() {
-        const debounceSearch = _.debounce(this.handleSearch, 1000);
+        const debounceSearch = _.debounce(this.handleSearch, 2000);
         return (
             <div className="search-books">
                 <div className="search-books-bar">
