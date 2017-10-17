@@ -20,10 +20,9 @@ class Book extends Component {
     };
 
     handleChange = async (event) => {
-        this.setState({
-            value: event.target.value
-        });
+        this.setState({value: event.target.value});
         await BooksAPI.update(this.props.book, event.target.value);
+        this.setState(this.state);
     }
 
     render() {
