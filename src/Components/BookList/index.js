@@ -7,11 +7,11 @@ import '../../App.css'
 class BookList extends Component {
     static propTypes = {
         books: PropTypes.array
-    }
+    };
 
     static defaultProps = {
         books: []
-    }
+    };
 
     render() {
         return (

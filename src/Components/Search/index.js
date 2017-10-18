@@ -9,11 +9,11 @@ import '../../App.css'
 class Search extends Component {
     static propTypes = {
         books: PropTypes.array
-    }
+    };
 
     static defaultProps = {
         books: []
-    }
+    };
 
     constructor (props) {
         super(props)
@@ -29,11 +29,8 @@ class Search extends Component {
     handleSearch = () => {
         new Promise(async (resolve, reject) => {
             const results = await BooksAPI.search(this.state.value, 20);
-            if (results)  {
-                resolve(results)
-            } else {
-                reject(results)
-            }
+            if (results) { resolve(results) }
+            else { reject(results) }
         })
             .then((successContent) => {
             this.setState({books: successContent})
@@ -54,9 +51,7 @@ class Search extends Component {
     }
 
     handleChange = (event) => {
-        this.setState({
-            value: event.target.value
-        });
+        this.setState({value: event.target.value});
     }
 
     render() {
